@@ -6,6 +6,25 @@ api_login:
   path: /api/login
   controller: App\Controller\SecurityController::login
 
+api_test:
+  path: /api/test
+  controller: App\Controller\DashboardController:testApi
+
 
 api_login_check:
   path: /api/login_check
+
+
+#Departments
+shipping_departments:
+  path: /departments/shipping
+  controller: App\Controller\DepartmentController:shippingDepartment
+
+picking_departments:
+  path: /departments/picking
+  controller: App\Controller\DepartmentController:pickingDepartment
+
+management_departments:
+  path: /departments/management
+  controller: App\Controller\DepartmentController:managementDepartment
+

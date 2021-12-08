@@ -17,4 +17,9 @@ class DashboardController extends AbstractController
             'controller_name' => 'DashboardController',
         ]);
     }
+
+    public function testApi()
+    {
+        return $this->json("Hello, World");
+    }
 }
