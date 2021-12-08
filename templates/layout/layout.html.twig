@@ -2,7 +2,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="{{ asset('vendors/mdi/css/materialdesignicons.min.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -69,7 +69,7 @@
                 </li>
                 <li class="nav-item nav-category">History</li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#0">
+                    <a class="nav-link" href="{{ path('order_logs') }}">
                         <i class="mdi menu-icon mdi-history"></i>
                         <span class="menu-title">Order Logs</span>
                     </a>
