@@ -1,10 +1,6 @@
 
 B
 docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
-Q
-!src/Form/RegistrationFormType.php,9\5\95d4b58438357928efb9c5a862a6d289d874e878
-Y
-)templates/registration/register.html.twig,1\c\1c8c7e669830383faba8ed6ab3baf68e465540f5
 J
 public/js/jquery.cookie.js,c\b\cb8d046b99c53f15e34d1f20f3a7b2e6d46cf9ad
 :
@@ -28,11 +24,21 @@ W
 'public/vendors/js/vendor.bundle.base.js,4\5\45761e66e77631bfed842bad16044920868c3d00
 H
 templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
-X
-(templates/order_logs/orderlogs.html.twig,f\b\fbf1cec7fd705407e88ea8af976d4df868feff02
 B
 config/bundles.php,f\a\fa9a09a4e1ae4281250526d3dec214138beb5735
 4
 .env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
 U
 %src/Controller/SecurityController.php,7\c\7cc876ecdb4df676c79a6188e9f3ac45e5079434
+V
+&src/Controller/DashboardController.php,6\e\6e6fc5dac9a0a6131b473915b3d400401476b947
+c
+3templates/department/managementDepartment.html.twig,a\d\ad9e76e16f3e0555c159a363f8e9e8d7cc4ba611
+a
+1templates/department/shippingDepartment.html.twig,2\9\290d852dfa703eaa6cc2894d38a50ea9968500ac
+S
+#templates/dashboard/index.html.twig,c\4\c4dec1c51a37260b8a9ebea29566298fc038d555
+`
+0templates/department/pickingDepartment.html.twig,9\8\982aa0674277e300f5fef6784634b77b252be4d8
+M
+config/packages/security.yaml,c\5\c5f941b4d4e9404f23935164fabdd261abb68e93

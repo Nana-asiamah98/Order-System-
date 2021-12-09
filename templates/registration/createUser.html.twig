@@ -1,11 +1,176 @@
 {% extends 'layout/layout.html.twig' %}
 
-{% block main_content %}
-    <h2>{{ page_title }}</h2>
-
-{% endblock %}
-
 {% block title %}
     {{ page_title }}
 {% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('vendors/datatable/dataTables.bootstrap4.css') }}">
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('vendors/datatable/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('vendors/datatable/dataTables.bootstrap4.js') }}"></script>
+    <script>
+
+        $(".order-history").addClass('active')
+
+        $(document).ready(function () {
+            {# Start Data Table Server Side #}
+            let orderTable = $(`#users_table`).DataTable();
+            {# End Data Table Server Side #}
+        })
+    </script>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="card">
+        <div class="card-header">
+            <h3><i class="mdi menu-icon mdi-account"></i> Users</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="d-sm-flex align-items-end justify-content-between border-bottom">
+                    <div>
+                        <div class="btn-wrapper">
+                            <a href="#0" class="btn btn-primary text-white me-0" data-bs-target="#registerModal" data-bs-toggle="modal"><i class="icon-download"></i> Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-12">
+                    <br/>
+                    <div class="table-responsive">
+                        <table class="table" id="users_table">
+                            <thead>
+                            <tr>
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center">#22211</td>
+                                <td class="text-center">
+                                    admin@admin.com
+                                </td>
+                                <td class="text-center">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal"
+                                                data-bs-target="#orderLogsModal"><i
+                                                    class="mdi mdi-pen"></i></button>
+                                        <button type="button" class="btn btn-danger btn-lg" id="deleteUser"><i
+                                                    class="mdi mdi-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Edit Modal #}
+    <div class="modal fade" id="orderLogsModal" tabindex="-1" role="dialog" aria-labelledby="orderLogsModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-account"></i> User
+                        Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="forms-sample">
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">Username</label>
+                            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputConfirmPassword1">Confirm Password</label>
+                            <input type="password" class="form-control" id="exampleInputConfirmPassword1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="form-check form-check-flat form-check-primary">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">
+                                Remember me
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Submit</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End Edit Modal #}
+
+    {# Edit Modal #}
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-account"></i> Register User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.firstName) }}
+                    {{ form_row(registrationForm.roles,{
+                        label: 'Roles'
+                    }) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Password'
+                    }) }}
+
+                        {#<label class="form-check-label">
+                            <input type="checkbox" class="form-check-input">
+                            Remember me
+                        </label>#}
+                        {{ form_row(registrationForm.agreeTerms) }}
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    {{ form_end(registrationForm) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End Edit Modal #}
+
+{% endblock %}
+
+
+
 
