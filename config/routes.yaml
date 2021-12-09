@@ -25,3 +25,11 @@ management_departments:
   path: /departments/management
   controller: App\Controller\DepartmentController:managementDepartment
 
+
+
+#Users Registration
+create_user:
+  path: /registration/create-user
+  methods: [GET,POST]
+  controller: App\Controller\RegistrationController:createUser
+

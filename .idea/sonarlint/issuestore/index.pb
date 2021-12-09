@@ -22,8 +22,6 @@ W
 'public/vendors/modal-demo/modal-demo.js,c\6\c68032a26b204dff3d79f4a9b2cf269f37ba94ae
 a
 1public/vendors/datatable/dataTables.bootstrap4.js,2\f\2f37713578d08f89643f6df3f67b8a52b2664c6e
-Y
-)src/Controller/RegistrationController.php,b\6\b6a5dce1eac6107738aa6c9b363b605aa2315b2c
 V
 &src/Controller/OrderLogsController.php,4\3\430a27080c648ef1fee52ece73a6d7d0cb1208d5
 W
