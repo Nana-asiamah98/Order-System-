@@ -28,8 +28,6 @@ B
 config/bundles.php,f\a\fa9a09a4e1ae4281250526d3dec214138beb5735
 4
 .env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
-U
-%src/Controller/SecurityController.php,7\c\7cc876ecdb4df676c79a6188e9f3ac45e5079434
 V
 &src/Controller/DashboardController.php,6\e\6e6fc5dac9a0a6131b473915b3d400401476b947
 c

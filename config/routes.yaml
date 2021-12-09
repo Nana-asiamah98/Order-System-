@@ -27,9 +27,14 @@ management_departments:
 
 
 
-#Users Registration
+#Users Management
 create_user:
   path: /registration/create-user
   methods: [GET,POST]
   controller: App\Controller\RegistrationController:createUser
+
+find_all_users:
+  path: /find/allUsers
+  methods: [ GET,POST ]
+  controller: App\Controller\UserController::allUsers
 

@@ -22,7 +22,57 @@
 
         $(document).ready(function () {
             {# Start Data Table Server Side #}
-            let orderTable = $(`#users_table`).DataTable();
+
+            let userColumns = [
+                {
+                    "data" : "firstName",
+                    "render" : function (data, type, row) {
+                        data = '<span class="text-capitalize" id="' + row.id + '" title="' + row.id + '"> ' + row.firstName + '</span>'
+                        return data;
+                    }
+                },
+                {
+                    "data" : "email",
+                    "render" : function (data, type, row) {
+                        data = '<span class="text-capitalize"> ' + row.email + '</span>'
+                        return data;
+                    }
+                },
+                {
+                    "data" : null,
+                    "render" : function (data, type, row) {
+                        data =  '<div class="text-center"> ' +
+                            ' <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#orderLogsModal"> ' +
+                                       ' <i  class="mdi mdi-pen">' + '</i>' +
+                            '</button>'+
+                            '<button type="button" class="btn btn-danger btn-lg" id="deleteUser">' +
+                            '<i class="mdi mdi-trash-can">' + ' </i> ' +
+                            ' </button> ' +
+                        ' </div>'
+                        return data;
+                    }
+                },
+            ];
+
+            let orderTable = $(`#users_table`).DataTable({
+                "processing": true,
+                "serverSide": true,
+                "pageLength": 10,
+                "order" : [0,"asc"],
+                "columns" : userColumns,
+                "ajax": {
+                    url: '/find/allUsers',
+                    type: 'GET',
+                    contentType: `application/json; charset=utf-8`,
+                    data: function (d) {
+                        return JSON.stringify(d);
+                    },
+                    success: function (d) {
+                        console.table(d);
+                    }
+            // TODO :: Work on DataTables and display data
+            }
+            });
             {# End Data Table Server Side #}
         })
     </script>
@@ -59,21 +109,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center">#22211</td>
-                                <td class="text-center">
-                                    admin@admin.com
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal"
-                                                data-bs-target="#orderLogsModal"><i
-                                                    class="mdi mdi-pen"></i></button>
-                                        <button type="button" class="btn btn-danger btn-lg" id="deleteUser"><i
-                                                    class="mdi mdi-trash-can"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
