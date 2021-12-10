@@ -6,6 +6,11 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Omines\DataTablesBundle\Adapter\ArrayAdapter;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\Column\TwigColumn;
+use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,11 +95,40 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_register');
     }
 
-    public function createUser(Request $request, UserPasswordHasherInterface $userPasswordHasher)
+    public function createUser(Request $request, UserPasswordHasherInterface $userPasswordHasher,DataTableFactory $dataTableFactory)
     {
+
+
+        $table = $dataTableFactory->create()
+            ->add('firstName', TextColumn::class)
+            ->add('email', TextColumn::class)
+            ->createAdapter(ORMAdapter::class,[
+                'entity' => User::class
+            ])
+            ->handleRequest($request);
+
+        $table
+            ->add('action', TextColumn::class, ['render' => function($value, $context) {
+                return sprintf('<div class="text-center"> 
+                            <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#orderLogsModal"> 
+                                       <i  class="mdi mdi-pen"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-lg" id="deleteUser">
+                            <i class="mdi mdi-trash-can"> </i> 
+                            </button> 
+                         </div>', $value);
+            }]);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
@@ -124,8 +158,10 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('create_user');
         }
 
+
         return $this->render('registration/createUser.html.twig',[
             'page_title' => 'User Management',
+            'datatable' => $table,
             'registrationForm' => $form->createView()
         ]);
     }

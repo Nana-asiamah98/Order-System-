@@ -40,3 +40,7 @@ S
 0templates/department/pickingDepartment.html.twig,9\8\982aa0674277e300f5fef6784634b77b252be4d8
 M
 config/packages/security.yaml,c\5\c5f941b4d4e9404f23935164fabdd261abb68e93
+W
+'src/Controller/DepartmentController.php,d\0\d067aea24b32bdddd841c39c705103f4b8711329
+I
+config/packages/twig.yaml,8\a\8a5c55d47e428b829ef7645f00a0b768cef8a5bf

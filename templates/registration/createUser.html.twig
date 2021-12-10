@@ -15,7 +15,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('vendors/datatable/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('vendors/datatable/dataTables.bootstrap4.js') }}"></script>
+{#    <script src="{{ asset('vendors/datatable/dataTables.bootstrap4.js') }}"></script>#}
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+{#    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
     <script>
 
         $(".order-history").addClass('active')
@@ -23,11 +25,25 @@
         $(document).ready(function () {
             {# Start Data Table Server Side #}
 
-            let userColumns = [
+            $('#users_table').initDataTables({{ datatable_settings(datatable) }}, {
+                searching: true,
+                dom:'<"html5buttons"B>lTfgitp',
+                buttons: [
+                    'copy',
+                    { extend: 'pdf', title: 'domains'},
+                    { extend: 'print' }
+                ]
+            }).then(function(dt) {
+                // dt contains the initialized instance of DataTables
+                dt.on('draw', function() {
+                })
+            });
+
+            /*let userColumns = [
                 {
-                    "data" : "firstName",
+                    "data" : "email",
                     "render" : function (data, type, row) {
-                        data = '<span class="text-capitalize" id="' + row.id + '" title="' + row.id + '"> ' + row.firstName + '</span>'
+                        data = '<span class="text-capitalize" id="' + row.id + '" title="' + row.id + '"> ' + row.email + '</span>'
                         return data;
                     }
                 },
@@ -52,27 +68,34 @@
                         return data;
                     }
                 },
-            ];
+            ];*/
 
-            let orderTable = $(`#users_table`).DataTable({
+            /*let orderTable = $(`#users_table`).DataTable({
                 "processing": true,
                 "serverSide": true,
                 "pageLength": 10,
-                "order" : [0,"asc"],
-                "columns" : userColumns,
+                "paging" : true,
+                "info" : true,
+                "searching": true,
+                "order" : [[2,"asc"]],
+                "columnDef" : [
+                    {"name" : "firstName", "target" : 0},
+                    {"name" : "email", "target" : 0},
+                ],
                 "ajax": {
-                    url: '/find/allUsers',
-                    type: 'GET',
-                    contentType: `application/json; charset=utf-8`,
-                    data: function (d) {
+                    "url": "
+{#{{ path('find_all_users') }}",#}
+                    "type": 'POST',
+                    "contentType": `application/json; charset=utf-8`,
+                    "data": function (d) {
                         return JSON.stringify(d);
                     },
-                    success: function (d) {
+                    "success": function (d) {
                         console.table(d);
                     }
             // TODO :: Work on DataTables and display data
             }
-            });
+            });*/
             {# End Data Table Server Side #}
         })
     </script>
@@ -99,18 +122,18 @@
 
                 <div class="col-12">
                     <br/>
-                    <div class="table-responsive">
-                        <table class="table" id="users_table">
-                            <thead>
-                            <tr>
-                                <th class="text-center">Username</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div class="table-responsive" id="users_table">
+{#                        <table class="table" id="users_table">#}
+{#                            <thead>#}
+{#                            <tr>#}
+{#                                <th class="text-center">Username</th>#}
+{#                                <th class="text-center">Email</th>#}
+{#                                <th class="text-center">Action</th>#}
+{#                            </tr>#}
+{#                            </thead>#}
+{#                            <tbody>#}
+{#                            </tbody>#}
+{#                        </table>#}
                     </div>
                 </div>
             </div>

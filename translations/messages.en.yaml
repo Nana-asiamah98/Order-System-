@@ -1,0 +1,5 @@
+dt:
+  columns:
+    firstName: 'First Name'
+    email: 'Email'
+    action: 'Action'
