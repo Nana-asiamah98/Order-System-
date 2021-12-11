@@ -22,8 +22,30 @@
 
         $(".order-history").addClass('active')
 
+
+
         $(document).ready(function () {
-            {# Start Data Table Server Side #}
+            $(".paginate_button").addClass('btn btn-info')
+
+
+            /*Delete User*/
+            $(document).on('click','#deleteUser',function () {
+                const dataColumn = {
+                    "_method" : 'DELETE',
+                    "_csrf_token": $('#deleteUser').data('csrf-token'),
+                }
+                console.log(dataColumn);
+                $.ajax({
+                    url: $('#deleteUser').data('remove-url'),
+                    type: 'POST',
+                    data: dataColumn
+                }).then(function (d) {
+                    window.location.reload();
+                })
+                    .catch(function (err) {
+                        console.log(err)
+                    })
+            })
 
             $('#users_table').initDataTables({{ datatable_settings(datatable) }}, {
                 searching: true,
@@ -39,64 +61,6 @@
                 })
             });
 
-            /*let userColumns = [
-                {
-                    "data" : "email",
-                    "render" : function (data, type, row) {
-                        data = '<span class="text-capitalize" id="' + row.id + '" title="' + row.id + '"> ' + row.email + '</span>'
-                        return data;
-                    }
-                },
-                {
-                    "data" : "email",
-                    "render" : function (data, type, row) {
-                        data = '<span class="text-capitalize"> ' + row.email + '</span>'
-                        return data;
-                    }
-                },
-                {
-                    "data" : null,
-                    "render" : function (data, type, row) {
-                        data =  '<div class="text-center"> ' +
-                            ' <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#orderLogsModal"> ' +
-                                       ' <i  class="mdi mdi-pen">' + '</i>' +
-                            '</button>'+
-                            '<button type="button" class="btn btn-danger btn-lg" id="deleteUser">' +
-                            '<i class="mdi mdi-trash-can">' + ' </i> ' +
-                            ' </button> ' +
-                        ' </div>'
-                        return data;
-                    }
-                },
-            ];*/
-
-            /*let orderTable = $(`#users_table`).DataTable({
-                "processing": true,
-                "serverSide": true,
-                "pageLength": 10,
-                "paging" : true,
-                "info" : true,
-                "searching": true,
-                "order" : [[2,"asc"]],
-                "columnDef" : [
-                    {"name" : "firstName", "target" : 0},
-                    {"name" : "email", "target" : 0},
-                ],
-                "ajax": {
-                    "url": "
-{#{{ path('find_all_users') }}",#}
-                    "type": 'POST',
-                    "contentType": `application/json; charset=utf-8`,
-                    "data": function (d) {
-                        return JSON.stringify(d);
-                    },
-                    "success": function (d) {
-                        console.table(d);
-                    }
-            // TODO :: Work on DataTables and display data
-            }
-            });*/
-            {# End Data Table Server Side #}
         })
     </script>
 {% endblock %}
@@ -153,38 +117,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="forms-sample">
-                        <div class="form-group">
-                            <label for="exampleInputUsername1">Username</label>
-                            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                   placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputConfirmPassword1">Confirm Password</label>
-                            <input type="password" class="form-control" id="exampleInputConfirmPassword1"
-                                   placeholder="Password">
-                        </div>
-                        <div class="form-check form-check-flat form-check-primary">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input">
-                                Remember me
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button class="btn btn-light">Cancel</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">Submit</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -203,24 +135,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.firstName) }}
-                    {{ form_row(registrationForm.roles,{
-                        label: 'Roles'
-                    }) }}
-                    {{ form_row(registrationForm.plainPassword, {
-                        label: 'Password'
-                    }) }}
-
-                        {#<label class="form-check-label">
-                            <input type="checkbox" class="form-check-input">
-                            Remember me
-                        </label>#}
-                        {{ form_row(registrationForm.agreeTerms) }}
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    {{ form_end(registrationForm) }}
-
+                    {{ include('registration/_form.html.twig') }}
                 </div>
             </div>
         </div>

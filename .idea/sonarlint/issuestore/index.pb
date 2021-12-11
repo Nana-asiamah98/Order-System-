@@ -44,3 +44,9 @@ W
 'src/Controller/DepartmentController.php,d\0\d067aea24b32bdddd841c39c705103f4b8711329
 I
 config/packages/twig.yaml,8\a\8a5c55d47e428b829ef7645f00a0b768cef8a5bf
+Q
+!src/Repository/UserRepository.php,9\4\943a623b5e2fd95ea78f6287fc600a6f8e0a5235
+Y
+)templates/registration/register.html.twig,1\c\1c8c7e669830383faba8ed6ab3baf68e465540f5
+X
+(templates/order_logs/orderlogs.html.twig,f\b\fbf1cec7fd705407e88ea8af976d4df868feff02

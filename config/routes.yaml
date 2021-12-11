@@ -33,8 +33,18 @@ create_user:
   methods: [GET,POST]
   controller: App\Controller\RegistrationController:createUser
 
+edit_user:
+  path: /user/{id}/edit
+  methods: [GET,POST]
+  controller: App\Controller\UserController:editUser
+
+delete_user:
+  path: /user/{id}/delete
+  methods: [POST]
+  controller: App\Controller\UserController:deleteUser
+
 find_all_users:
-  path: /find/allUsers
+  path: /user/allUsers
   methods: [ POST ]
   controller: App\Controller\UserController::allUsers
 

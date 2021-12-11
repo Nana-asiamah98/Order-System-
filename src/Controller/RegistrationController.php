@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -27,11 +28,16 @@ class RegistrationController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var CsrfTokenManagerInterface
+     */
+    private $csrfToken;
 
-    public function __construct(EmailVerifier $emailVerifier, EntityManagerInterface $entityManager)
+    public function __construct(EmailVerifier $emailVerifier, EntityManagerInterface $entityManager,CsrfTokenManagerInterface $csrfToken)
     {
         $this->emailVerifier = $emailVerifier;
         $this->entityManager = $entityManager;
+        $this->csrfToken = $csrfToken;
     }
 
     /**
@@ -46,7 +52,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -95,28 +101,43 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_register');
     }
 
-    public function createUser(Request $request, UserPasswordHasherInterface $userPasswordHasher,DataTableFactory $dataTableFactory)
+    public function createUser(Request $request, UserPasswordHasherInterface $userPasswordHasher, DataTableFactory $dataTableFactory)
     {
 
 
         $table = $dataTableFactory->create()
             ->add('firstName', TextColumn::class)
             ->add('email', TextColumn::class)
-            ->createAdapter(ORMAdapter::class,[
+            ->createAdapter(ORMAdapter::class, [
                 'entity' => User::class
             ])
             ->handleRequest($request);
 
+
         $table
-            ->add('action', TextColumn::class, ['render' => function($value, $context) {
+            ->add('id', TextColumn::class, ['render' => function ($value, $context) {
                 return sprintf('<div class="text-center"> 
-                            <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#orderLogsModal"> 
+                            <a href="%s" class="btn btn-warning btn-lg"> 
                                        <i  class="mdi mdi-pen"></i>
+                            </a>
+                             <button type="button" class="btn btn-danger btn-lg" id="deleteUser" data-csrf-token="%s" data-remove-url="%s"> 
+                                       <i  class="mdi mdi-trash-can"></i>
                             </button>
-                            <button type="button" class="btn btn-danger btn-lg" id="deleteUser">
-                            <i class="mdi mdi-trash-can"> </i> 
-                            </button> 
-                         </div>', $value);
+                            <!--<form action=""  method="post" onsubmit="return confirm()">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_csrf_token" value="">
+                                <button  type="submit" class="btn btn-danger btn-lg" id="deleteUser">
+                                    <i class="mdi mdi-trash-can"> </i> 
+                                </button> 
+                            </form>-->
+                            
+                            
+                         </div>',
+                    $this->generateUrl('edit_user', ["id" => $value]),
+                    $this->csrfToken->refreshToken('remove'),
+                    $this->generateUrl('delete_user',["id" => $value])
+
+                );
             }]);
 
         if ($table->isCallback()) {
@@ -127,7 +148,6 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -159,7 +179,7 @@ class RegistrationController extends AbstractController
         }
 
 
-        return $this->render('registration/createUser.html.twig',[
+        return $this->render('registration/createUser.html.twig', [
             'page_title' => 'User Management',
             'datatable' => $table,
             'registrationForm' => $form->createView()

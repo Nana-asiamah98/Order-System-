@@ -1,0 +1,45 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('vendors/datatable/dataTables.bootstrap4.css') }}">
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('vendors/datatable/jquery.dataTables.js') }}"></script>
+    {# <script src="{{ asset('vendors/datatable/dataTables.bootstrap4.js') }}"></script> #}
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+    {# <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script> #}
+    <script>
+
+        $(".order-history").addClass('active')
+    </script>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="card">
+        <div class="card-header">
+            <h3><i class="mdi menu-icon mdi-account"></i> Users</h3>
+        </div>
+
+        <div class="card-body">
+            {{ include('registration/_form.html.twig') }}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
