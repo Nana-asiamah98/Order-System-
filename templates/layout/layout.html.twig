@@ -108,6 +108,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="home-tab">
+                            {% for flashMessage in app.session.flashbag.get('success') %}
+
+                                <div class="alert alert-success">
+                                    {{ flashMessage }}
+                                </div>
+
+                            {% endfor %}
                             {% block main_content %}
 
                             {% endblock %}

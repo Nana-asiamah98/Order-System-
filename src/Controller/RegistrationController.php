@@ -23,6 +23,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
+
     private EmailVerifier $emailVerifier;
     /**
      * @var EntityManagerInterface
@@ -64,7 +65,7 @@ class RegistrationController extends AbstractController
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('pafar65292@terasd.com', 'Pafar'))
+                    ->from(new Address('cikix82526@kingsready.com', 'Cikix'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
@@ -120,7 +121,7 @@ class RegistrationController extends AbstractController
                             <a href="%s" class="btn btn-warning btn-lg"> 
                                        <i  class="mdi mdi-pen"></i>
                             </a>
-                             <button type="button" class="btn btn-danger btn-lg" id="deleteUser" data-csrf-token="%s" data-remove-url="%s"> 
+                             <button class="btn btn-danger btn-lg deletedUser" id="%d" data-csrf-token="%s" data-remove-url="%s"> 
                                        <i  class="mdi mdi-trash-can"></i>
                             </button>
                             <!--<form action=""  method="post" onsubmit="return confirm()">
@@ -134,6 +135,7 @@ class RegistrationController extends AbstractController
                             
                          </div>',
                     $this->generateUrl('edit_user', ["id" => $value]),
+                    $value,
                     $this->csrfToken->refreshToken('remove'),
                     $this->generateUrl('delete_user',["id" => $value])
 
@@ -175,6 +177,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
+            $this->addFlash('success',"User Added Successfully");
             return $this->redirectToRoute('create_user');
         }
 

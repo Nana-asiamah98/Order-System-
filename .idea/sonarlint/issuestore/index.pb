@@ -26,8 +26,6 @@ H
 templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
 B
 config/bundles.php,f\a\fa9a09a4e1ae4281250526d3dec214138beb5735
-4
-.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
 V
 &src/Controller/DashboardController.php,6\e\6e6fc5dac9a0a6131b473915b3d400401476b947
 c
@@ -50,3 +48,9 @@ Y
 )templates/registration/register.html.twig,1\c\1c8c7e669830383faba8ed6ab3baf68e465540f5
 X
 (templates/order_logs/orderlogs.html.twig,f\b\fbf1cec7fd705407e88ea8af976d4df868feff02
+U
+%src/Controller/SecurityController.php,7\c\7cc876ecdb4df676c79a6188e9f3ac45e5079434
+O
+config/packages/datatables.yaml,c\4\c44125afd3cf10020d4f55dccb3535d7e51699ef
+Q
+!src/Form/RegistrationFormType.php,9\5\95d4b58438357928efb9c5a862a6d289d874e878

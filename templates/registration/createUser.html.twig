@@ -10,63 +10,23 @@
     <link rel="stylesheet" href="{{ asset('vendors/datatable/dataTables.bootstrap4.css') }}">
 {% endblock %}
 
-
-
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('vendors/datatable/jquery.dataTables.js') }}"></script>
-{#    <script src="{{ asset('vendors/datatable/dataTables.bootstrap4.js') }}"></script>#}
     <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
-{#    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
+    <script src="{{ asset('vendors/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('js/userRegistration.js') }}"></script>
     <script>
-
         $(".order-history").addClass('active')
-
-
-
-        $(document).ready(function () {
-            $(".paginate_button").addClass('btn btn-info')
-
-
-            /*Delete User*/
-            $(document).on('click','#deleteUser',function () {
-                const dataColumn = {
-                    "_method" : 'DELETE',
-                    "_csrf_token": $('#deleteUser').data('csrf-token'),
-                }
-                console.log(dataColumn);
-                $.ajax({
-                    url: $('#deleteUser').data('remove-url'),
-                    type: 'POST',
-                    data: dataColumn
-                }).then(function (d) {
-                    window.location.reload();
-                })
-                    .catch(function (err) {
-                        console.log(err)
-                    })
-            })
-
+        $(() => {
             $('#users_table').initDataTables({{ datatable_settings(datatable) }}, {
                 searching: true,
-                dom:'<"html5buttons"B>lTfgitp',
-                buttons: [
-                    'copy',
-                    { extend: 'pdf', title: 'domains'},
-                    { extend: 'print' }
-                ]
-            }).then(function(dt) {
-                // dt contains the initialized instance of DataTables
-                dt.on('draw', function() {
-                })
             });
-
-        })
+        })(jQuery);
     </script>
 {% endblock %}
 
 {% block main_content %}
-
     <div class="card">
         <div class="card-header">
             <h3><i class="mdi menu-icon mdi-account"></i> Users</h3>
@@ -77,7 +37,8 @@
                 <div class="d-sm-flex align-items-end justify-content-between border-bottom">
                     <div>
                         <div class="btn-wrapper">
-                            <a href="#0" class="btn btn-primary text-white me-0" data-bs-target="#registerModal" data-bs-toggle="modal"><i class="icon-download"></i> Register</a>
+                            <a href="#0" class="btn btn-primary text-white me-0" data-bs-target="#registerModal"
+                               data-bs-toggle="modal"><i class="icon-download"></i> Register</a>
                         </div>
                     </div>
                 </div>
@@ -87,41 +48,12 @@
                 <div class="col-12">
                     <br/>
                     <div class="table-responsive" id="users_table">
-{#                        <table class="table" id="users_table">#}
-{#                            <thead>#}
-{#                            <tr>#}
-{#                                <th class="text-center">Username</th>#}
-{#                                <th class="text-center">Email</th>#}
-{#                                <th class="text-center">Action</th>#}
-{#                            </tr>#}
-{#                            </thead>#}
-{#                            <tbody>#}
-{#                            </tbody>#}
-{#                        </table>#}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    {# Edit Modal #}
-    <div class="modal fade" id="orderLogsModal" tabindex="-1" role="dialog" aria-labelledby="orderLogsModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-account"></i> User
-                        Account</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
-    {# End Edit Modal #}
 
     {# Edit Modal #}
     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
@@ -129,7 +61,8 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-account"></i> Register User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-account"></i> Register
+                        User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

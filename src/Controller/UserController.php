@@ -90,6 +90,7 @@ class UserController extends AbstractController
             $this->entityManager->flush();
 
 
+            $this->addFlash('success',"User edited successfully");
             return $this->redirectToRoute('create_user');
         }
 
