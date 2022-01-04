@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
  */
-class Order
+class Order implements OrderInterface
 {
     /**
      * @ORM\Id
@@ -33,7 +33,7 @@ class Order
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $state;
+    private $state = self::ORDER_RECEIVED;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
@@ -41,12 +41,12 @@ class Order
     private $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderDetails")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderDetails",cascade={"persist"})
      */
     private $product;
 
     /**
-     * @ORM\OneToMany(targetEntity=ShippingDetails::class, mappedBy="orderDetails")
+     * @ORM\OneToMany(targetEntity=ShippingDetails::class, mappedBy="orderDetails",cascade={"persist"})
      */
     private $shipping;
 

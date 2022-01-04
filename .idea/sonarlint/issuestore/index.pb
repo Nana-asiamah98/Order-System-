@@ -1,6 +1,4 @@
 
-B
-docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
 J
 public/js/jquery.cookie.js,c\b\cb8d046b99c53f15e34d1f20f3a7b2e6d46cf9ad
 :
@@ -10,8 +8,6 @@ b
 2public/vendors/datatable/dataTables.bootstrap4.css,f\6\f66251fbc892614df05238c1d0f5b4536df0877f
 ]
 -public/vendors/datatable/jquery.dataTables.js,e\4\e447ffe7569276c65742e87b7b7654f4878ea53e
-C
-src/Entity/User.php,0\a\0a3e99b9da178509aeb5b3fa6f5dce46bc0eb8be
 G
 public/js/modal-demo.js,b\a\ba9ed8203ea01e77df0b55c1c3db58a225d1d81c
 W
@@ -26,8 +22,6 @@ H
 templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
 B
 config/bundles.php,f\a\fa9a09a4e1ae4281250526d3dec214138beb5735
-V
-&src/Controller/DashboardController.php,6\e\6e6fc5dac9a0a6131b473915b3d400401476b947
 c
 3templates/department/managementDepartment.html.twig,a\d\ad9e76e16f3e0555c159a363f8e9e8d7cc4ba611
 a
@@ -36,10 +30,6 @@ S
 #templates/dashboard/index.html.twig,c\4\c4dec1c51a37260b8a9ebea29566298fc038d555
 `
 0templates/department/pickingDepartment.html.twig,9\8\982aa0674277e300f5fef6784634b77b252be4d8
-M
-config/packages/security.yaml,c\5\c5f941b4d4e9404f23935164fabdd261abb68e93
-W
-'src/Controller/DepartmentController.php,d\0\d067aea24b32bdddd841c39c705103f4b8711329
 I
 config/packages/twig.yaml,8\a\8a5c55d47e428b829ef7645f00a0b768cef8a5bf
 Q
@@ -54,3 +44,23 @@ O
 config/packages/datatables.yaml,c\4\c44125afd3cf10020d4f55dccb3535d7e51699ef
 Q
 !src/Form/RegistrationFormType.php,9\5\95d4b58438357928efb9c5a862a6d289d874e878
+V
+&templates/registration/_form.html.twig,0\c\0cf6c3c65b530c55bdceee68a00b688621c2e5b4
+M
+translations/messages.en.yaml,4\4\44608ba7c261c1a51dab59db3f2904bf25d563a1
+Y
+)templates/registration/editUser.html.twig,3\7\37df5337f38ef0b313a3759e7c78b8691cf8d55b
+N
+src/Security/EmailVerifier.php,2\5\25e59371ba89f9e954d6b099fbe6b12c60340c70
+4
+.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+Q
+!src/Controller/UserController.php,8\7\87b99206717ccce222f05190f36b6273e3ea6228
+[
++templates/registration/createUser.html.twig,c\a\ca3b0c935200dc4e70e7db8b34da0103cb044161
+Q
+!templates/layout/layout.html.twig,7\5\75ddb3ed9714006ab1affb896c3c272ff44c9ce2
+M
+public/js/userRegistration.js,f\5\f539ba0a70d22374c347fbd8ecaa4c7dc554d5d4
+S
+#public/vendors/tinymce/tinymce.d.ts,9\7\97bd3c1219f84a4cb538b139465a06ad2531fd49

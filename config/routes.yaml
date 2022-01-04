@@ -48,3 +48,10 @@ find_all_users:
   methods: [ POST ]
   controller: App\Controller\UserController::allUsers
 
+
+#Orders
+test_order:
+  path: /api/order/test
+  methods: [POST]
+  controller: App\Controller\OrderController::testJSon
+
