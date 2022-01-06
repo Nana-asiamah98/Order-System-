@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimeStampableTrait;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,9 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
  * @ORM\Table(name="`order`")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Order implements OrderInterface
 {
+
+    use TimeStampableTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -41,12 +46,12 @@ class Order implements OrderInterface
     private $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderDetails",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderDetails",cascade={"persist","remove"})
      */
     private $product;
 
     /**
-     * @ORM\OneToMany(targetEntity=ShippingDetails::class, mappedBy="orderDetails",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=ShippingDetails::class, mappedBy="orderDetails",cascade={"persist","remove"})
      */
     private $shipping;
 

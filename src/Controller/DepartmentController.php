@@ -18,12 +18,7 @@ class DepartmentController extends AbstractController
         ]);
     }
 
-    public function pickingDepartment()
-    {
-        return $this->render('department/pickingDepartment.html.twig',[
-            "department_name" => "Picking Department"
-        ]);
-    }
+
 
     public function shippingDepartment()
     {

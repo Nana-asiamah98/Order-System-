@@ -2,14 +2,17 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimeStampableTrait;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
+    use TimeStampableTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -13,13 +13,13 @@ api_login_check:
 
 
 #Departments
+picking_departments:
+  path: /departments/picking
+  controller: App\Controller\PickingDepartmentController::index
+
 shipping_departments:
   path: /departments/shipping
   controller: App\Controller\DepartmentController:shippingDepartment
-
-picking_departments:
-  path: /departments/picking
-  controller: App\Controller\DepartmentController:pickingDepartment
 
 management_departments:
   path: /departments/management

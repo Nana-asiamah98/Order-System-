@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimeStampableTrait;
 use App\Repository\ShippingDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ShippingDetailsRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class ShippingDetails
 {
+    use TimeStampableTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
