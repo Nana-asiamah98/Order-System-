@@ -36,9 +36,9 @@ class Order implements OrderInterface
     private $discount;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true,options={"default":self::ORDER_RECEIVED})
      */
-    private $state = self::ORDER_RECEIVED;
+    private $state;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
@@ -57,6 +57,7 @@ class Order implements OrderInterface
 
     public function __construct()
     {
+        $this->state = self::ORDER_RECEIVED;
         $this->product = new ArrayCollection();
         $this->shipping = new ArrayCollection();
     }
@@ -97,8 +98,7 @@ class Order implements OrderInterface
 
     public function setState(?string $state): self
     {
-        $this->state = $state;
-
+        $this->state = ($state === null) ? self::ORDER_RECEIVED : $state;
         return $this;
     }
 

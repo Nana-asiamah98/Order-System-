@@ -27,7 +27,7 @@ class OrderController extends AbstractController
             /** @var OrderInterface $savedOrder */
             $savedOrder = $orderService->createOrder($form->getData());
 
-            return new JsonResponse($savedOrder,Response::HTTP_OK);
+            return new JsonResponse($form->getData(),Response::HTTP_OK);
         }
         return new JsonResponse("Failed",Response::HTTP_BAD_REQUEST);
 
