@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\TimeStampableTrait;
 use App\Repository\ShippingDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ShippingDetailsRepository::class)
@@ -23,21 +24,25 @@ class ShippingDetails
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Groups ({"show_order"})
      */
     private $method;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ({"show_order"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups ({"show_order"})
      */
     private $postcode;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Groups ({"show_order"})
      */
     private $phoneNumber;
 

@@ -62,8 +62,6 @@ S
 #public/vendors/tinymce/tinymce.d.ts,9\7\97bd3c1219f84a4cb538b139465a06ad2531fd49
 N
 config/packages/framework.yaml,d\f\df607fe73ff82c569824a7392edf5e760e998efe
-=
-composer.json,3\9\3957b91a0d8450cea0115cfd5af69eac90d75897
 B
 docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
 F

@@ -7,6 +7,7 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OrderRepository::class)
@@ -27,16 +28,19 @@ class Order implements OrderInterface
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups ({"show_order"})
      */
     private $total;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups ({"show_order"})
      */
     private $discount;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true,options={"default":self::ORDER_RECEIVED})
+     * @Groups ({"show_order"})
      */
     private $state;
 
@@ -47,11 +51,13 @@ class Order implements OrderInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderDetails",cascade={"persist","remove"})
+     * @Groups ({"show_order"})
      */
     private $product;
 
     /**
      * @ORM\OneToMany(targetEntity=ShippingDetails::class, mappedBy="orderDetails",cascade={"persist","remove"})
+     * @Groups ({"show_order"})
      */
     private $shipping;
 

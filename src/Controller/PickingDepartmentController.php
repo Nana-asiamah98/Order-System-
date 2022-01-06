@@ -17,6 +17,7 @@ class PickingDepartmentController extends AbstractController
     {
 
         $receivedOrders = $orderRepository->findBy(['state'=> OrderInterface::ORDER_RECEIVED]);
+        dump($receivedOrders);
 
 
         return $this->render('department/pickingDepartment.html.twig',[

@@ -12,11 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class OrderController extends AbstractController
 {
 
-    public function testJSon(Request $request, OrderService $orderService)
+    public function testJSon(Request $request, OrderService $orderService,SerializerInterface  $serializer)
     {
         $requestedData = json_decode($request->getContent(),true);
 
@@ -27,7 +28,7 @@ class OrderController extends AbstractController
             /** @var OrderInterface $savedOrder */
             $savedOrder = $orderService->createOrder($form->getData());
 
-            return new JsonResponse($form->getData(),Response::HTTP_OK);
+            return new Response($serializer->serialize($savedOrder,'json',['groups' => 'show_order']),Response::HTTP_OK);
         }
         return new JsonResponse("Failed",Response::HTTP_BAD_REQUEST);
 
