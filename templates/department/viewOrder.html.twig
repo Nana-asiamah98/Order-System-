@@ -1,5 +1,46 @@
 {% extends 'layout/layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="module">
+        $(document).ready(function () {
+
+
+            /*Mark Order*/
+            $(document).on('click', '#markOrder', function () {
+                let orderDetails = {{ order.id }};
+
+                JsLoadingOverlay.show({
+                    'spinnerIcon': 'ball-circus',
+                    'spinnerColor': '#ffffff',
+
+                });
+
+                $.ajax({
+                    url: `/order/${orderDetails}/processing`,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: orderDetails
+                }).then((data) => {
+                    console.log(data)
+                    $('#markOrder').addClass('disabled');
+                    $('#productBoxID').removeClass('disabled');
+                    JsLoadingOverlay.hide()
+                }).catch((err) => {
+                    console.log(err)
+                });
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
 {% block main_content %}
 
     <div class="card">
@@ -46,57 +87,79 @@
                             <div class="card-title">
                                 Shipping Details
                             </div>
-
-                            <div class="card-body">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <ul class="bullet-line-list">
-                                            <li>
-                                                <h6>Shipping Method</h6>
-                                                <p>{{ order.shipping.first.method }}</p>
-                                            </li>
-                                            <li>
-                                                <h6>Shipping Address</h6>
-                                                <p>{{ order.shipping.first.address }}</p>
-                                            </li>
-                                            <li>
-                                                <h6>Phone Number</h6>
-                                                <p>{{ order.shipping.first.phoneNumber }}</p>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="bullet-line-list">
+                                        <li>
+                                            <h6>Shipping Method</h6>
+                                            <p>{{ order.shipping.first.method }}</p>
+                                        </li>
+                                        <li>
+                                            <h6>Shipping Address</h6>
+                                            <p>{{ order.shipping.first.address }}</p>
+                                        </li>
+                                        <li>
+                                            <h6>Phone Number</h6>
+                                            <p>{{ order.shipping.first.phoneNumber }}</p>
+                                        </li>
 
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <button class="btn btn-primary btn-icon-text" style="color: white">
-                            <i class="ti-reload btn-icon-prepend"></i>
-                            Mark Picking Products
-                        </button>
-                        <button class="btn btn-danger btn-icon-text" style="color: white"
-                            {% if  order.state != 'ORDER_PROCESSING'  %}
-                                disabled
-                                {% endif %}
-                        >
-                            <i class="ti-upload btn-icon-prepend"></i>
-                            Add Product Box ID
-                        </button>
+            <div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-icon-text" id="markOrder" style="color: white">
+                                <i class="ti-reload btn-icon-prepend"></i>
+                                Mark Picking Products
+                            </button>
+                            <button class="btn btn-danger disabled btn-icon-text" id="productBoxID" style="color: white"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#orderLogsModal">
+                                <i class="ti-upload btn-icon-prepend"></i>
+                                Add Product Box ID
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
+
+    {# Modal #}
+    <div class="modal fade" id="orderLogsModal" tabindex="-1" role="dialog" aria-labelledby="orderLogsModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-history"></i> Process
+                        Picking Products</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form) }}
+                    {{ form_row(form.boxId) }}
+                    <button type="submit" class="form-control btn btn-primary">Submit</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End Of Modal #}
+
 
 {% endblock %}
 

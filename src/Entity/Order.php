@@ -39,6 +39,27 @@ class Order implements OrderInterface
     private $discount;
 
     /**
+     * @ORM\Column(type="integer",nullable=false)
+     */
+    private $boxId;
+
+    /**
+     * @return mixed
+     */
+    public function getBoxId()
+    {
+        return $this->boxId;
+    }
+
+    /**
+     * @param mixed $boxId
+     */
+    public function setBoxId($boxId): void
+    {
+        $this->boxId = $boxId;
+    }
+
+    /**
      * @ORM\Column(type="string", length=100, nullable=true,options={"default":self::ORDER_RECEIVED})
      * @Groups ({"show_order"})
      */
@@ -179,4 +200,6 @@ class Order implements OrderInterface
 
         return $this;
     }
+
+
 }

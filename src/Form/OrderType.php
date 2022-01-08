@@ -60,6 +60,7 @@ class OrderType extends AbstractType
                 'prototype' => true,
                 'required' => true,
             ])
+
         ;
     }
 

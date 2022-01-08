@@ -13,7 +13,7 @@
 
         <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('css/custom-css.css') }}">
+
 
         <!-- End Layout styles -->
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}"/>
@@ -38,6 +38,7 @@
     <script src="{{ asset('js/template.js') }}"></script>
     <script src="{{ asset('js/settings.js') }}"></script>
     <script src="{{ asset('js/todolist.js') }}"></script>
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
 </body>
 </html>

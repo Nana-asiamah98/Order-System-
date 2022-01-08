@@ -32,4 +32,42 @@ class OrderService
         $this->entityManager->flush();
         return $requestedOrder;
     }
+
+    /*Picking Department*/
+    public function markPickingProduct(Order $order): bool
+    {
+        if (null === $order) {
+            return false;
+        }
+
+        /** @var OrderInterface $isOrder */
+        $isOrder = $this->entityManager->getRepository(Order::class)->find($order);
+
+        if (null !== $isOrder) {
+            $isOrder->setState(OrderInterface::ORDER_PROCESSING);
+            $this->entityManager->persist($isOrder);
+            $this->entityManager->flush();
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isOrderMarked(Order $order): bool
+    {
+        if (null === $order) {
+            return false;
+        }
+
+        /** @var OrderInterface $isOrder */
+        $isOrder = $this->entityManager->getRepository(Order::class)->find($order);
+
+
+        if (null !== $isOrder && $isOrder->getState() === OrderInterface::ORDER_PROCESSING) {
+            dd("hrer");
+            return true;
+        }
+        return false;
+
+    }
 }

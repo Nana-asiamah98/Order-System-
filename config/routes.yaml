@@ -19,7 +19,7 @@ picking_departments:
 
 shipping_departments:
   path: /departments/shipping
-  controller: App\Controller\DepartmentController:shippingDepartment
+  controller: App\Controller\ShippingDepartmentController::index
 
 management_departments:
   path: /departments/management
@@ -59,4 +59,14 @@ show_order:
   path: /order/{id}/view
   methods: [GET,POST]
   controller: App\Controller\PickingDepartmentController::showOrder
+
+mark_order:
+  path: /order/{id}/processing
+  methods: [PUT]
+  controller: App\Controller\PickingDepartmentController::markOrder
+
+order_marked:
+  path: /order/{id}/marked
+  methods: [GET]
+  controller: App\Controller\PickingDepartmentController::isOrderMarkedAsProcessing
 

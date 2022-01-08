@@ -20,13 +20,15 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function findReceivedOrders()
+    public function findOrders(string $state)
     {
         return $this->createQueryBuilder('o')
             ->andWhere('o.state LIKE :orderState')
-            ->setParameter('orderState',OrderInterface::ORDER_RECEIVED)
+            ->setParameter('orderState', $state)
             ->getQuery();
     }
+
+
 
     // /**
     //  * @return Order[] Returns an array of Order objects
