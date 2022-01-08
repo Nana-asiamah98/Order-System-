@@ -25,8 +25,7 @@ class OrderRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('o')
             ->andWhere('o.state LIKE :orderState')
             ->setParameter('orderState',OrderInterface::ORDER_RECEIVED)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     // /**

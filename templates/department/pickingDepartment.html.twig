@@ -1,7 +1,6 @@
 {% extends 'layout/layout.html.twig' %}
 
 {% block main_content %}
-
     <div class="card">
         <div class="card-header">
             <h3>Received Orders</h3>
@@ -30,15 +29,18 @@
                                 <td class="text-center">12/05/2021</td>
                                 <td class="text-center">
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
+                                        <a href="{{ path('show_order',{'id': order.id}) }}" type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
                                                 data-bs-target="#orderLogsModal"><i
-                                                    class="mdi mdi-eye"></i></button>
+                                                    class="mdi mdi-eye"></i></a>
                                     </div>
                                 </td>
                             </tr>
                             {% endfor %}
                             </tbody>
                         </table>
+                        <div class="navigation">
+                            {{ knp_pagination_render(orders) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,8 +51,6 @@
 
 {% block title %}
     {{ department_name }}
-
-
 {% endblock %}
 
 {% block javascripts %}

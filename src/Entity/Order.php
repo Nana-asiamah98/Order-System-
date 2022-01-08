@@ -45,18 +45,18 @@ class Order implements OrderInterface
     private $state;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders",fetch="EAGER")
      */
     private $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderDetails",cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="orderDetails",cascade={"persist","remove"},fetch="EAGER")
      * @Groups ({"show_order"})
      */
     private $product;
 
     /**
-     * @ORM\OneToMany(targetEntity=ShippingDetails::class, mappedBy="orderDetails",cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity=ShippingDetails::class, mappedBy="orderDetails",cascade={"persist","remove"},fetch="EAGER")
      * @Groups ({"show_order"})
      */
     private $shipping;

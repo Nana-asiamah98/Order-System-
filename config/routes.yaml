@@ -55,3 +55,8 @@ test_order:
   methods: [POST]
   controller: App\Controller\OrderController::testJSon
 
+show_order:
+  path: /order/{id}/view
+  methods: [GET,POST]
+  controller: App\Controller\PickingDepartmentController::showOrder
+

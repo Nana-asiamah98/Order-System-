@@ -18,8 +18,6 @@ V
 &src/Controller/OrderLogsController.php,4\3\430a27080c648ef1fee52ece73a6d7d0cb1208d5
 W
 'public/vendors/js/vendor.bundle.base.js,4\5\45761e66e77631bfed842bad16044920868c3d00
-H
-templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
 B
 config/bundles.php,f\a\fa9a09a4e1ae4281250526d3dec214138beb5735
 c
@@ -32,30 +30,18 @@ I
 config/packages/twig.yaml,8\a\8a5c55d47e428b829ef7645f00a0b768cef8a5bf
 Q
 !src/Repository/UserRepository.php,9\4\943a623b5e2fd95ea78f6287fc600a6f8e0a5235
-Y
-)templates/registration/register.html.twig,1\c\1c8c7e669830383faba8ed6ab3baf68e465540f5
 U
 %src/Controller/SecurityController.php,7\c\7cc876ecdb4df676c79a6188e9f3ac45e5079434
 O
 config/packages/datatables.yaml,c\4\c44125afd3cf10020d4f55dccb3535d7e51699ef
 Q
 !src/Form/RegistrationFormType.php,9\5\95d4b58438357928efb9c5a862a6d289d874e878
-V
-&templates/registration/_form.html.twig,0\c\0cf6c3c65b530c55bdceee68a00b688621c2e5b4
 M
 translations/messages.en.yaml,4\4\44608ba7c261c1a51dab59db3f2904bf25d563a1
-Y
-)templates/registration/editUser.html.twig,3\7\37df5337f38ef0b313a3759e7c78b8691cf8d55b
 N
 src/Security/EmailVerifier.php,2\5\25e59371ba89f9e954d6b099fbe6b12c60340c70
 4
 .env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
-Q
-!src/Controller/UserController.php,8\7\87b99206717ccce222f05190f36b6273e3ea6228
-[
-+templates/registration/createUser.html.twig,c\a\ca3b0c935200dc4e70e7db8b34da0103cb044161
-Q
-!templates/layout/layout.html.twig,7\5\75ddb3ed9714006ab1affb896c3c272ff44c9ce2
 M
 public/js/userRegistration.js,f\5\f539ba0a70d22374c347fbd8ecaa4c7dc554d5d4
 S
@@ -72,7 +58,7 @@ I
 src/Form/ShippingType.php,b\8\b868a4cb0f670d11001bceb5d5b6ae04ef6f7181
 L
 src/Service/OrderService.php,2\0\20ce761d6aebbef67ad7f4bfc9dc04fd0213825f
-R
-"src/Repository/OrderRepository.php,9\1\9131b75e109519741aebf21b4ab3a3e118405f84
 W
 'src/Controller/DepartmentController.php,d\0\d067aea24b32bdddd841c39c705103f4b8711329
+X
+(src/Entity/Traits/TimeStampableTrait.php,6\4\646cc39e4fdf8761c44819c912d075ca58efce86
