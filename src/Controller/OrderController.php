@@ -12,10 +12,12 @@ use App\Form\BoxType;
 use App\Form\OrderType;
 use App\Form\ShippingMethodType;
 use App\Repository\OrderRepository;
+use App\Service\FileUploadService;
 use App\Service\OrderService;
 use App\Service\ShippingMethodService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +41,10 @@ class OrderController extends AbstractController
      * @var ShippingMethodService
      */
     private $shippingMethodService;
+    /**
+     * @var FileUploadService
+     */
+    private $fileUploadService;
 
 
     /**
@@ -48,13 +54,15 @@ class OrderController extends AbstractController
         OrderRepository $orderRepository,
         EntityManagerInterface $entityManager,
         OrderService $orderService,
-        ShippingMethodService $shippingMethodService
+        ShippingMethodService $shippingMethodService,
+        FileUploadService $fileUploadService
     )
     {
         $this->orderRepository = $orderRepository;
         $this->entityManager = $entityManager;
         $this->orderService = $orderService;
         $this->shippingMethodService = $shippingMethodService;
+        $this->fileUploadService = $fileUploadService;
     }
 
 
@@ -106,8 +114,14 @@ class OrderController extends AbstractController
 
         if ($shippingMethodForm->isSubmitted() && $shippingMethodForm->isValid() && $this->isCsrfTokenValid("shipping_method", $submittedToken)) {
 
+            /** @var UploadedFile $fileUpload */
+            $fileUpload = $shippingMethodForm->get('documentPath')->getData();
+
+            $fileUploadedName = $this->fileUploadService->fileUpload($fileUpload);
+
             /** @var ShippingMethodInterface $shippingMethodData */
             $shippingMethodData = $shippingMethodForm->getData();
+            $shippingMethodData->setDocumentPath($fileUploadedName);
             $order->setState(Order::ORDER_SHIPPED);
             $shippingMethodData->setOrderDetails($order);
 
@@ -120,7 +134,6 @@ class OrderController extends AbstractController
             $this->addFlash('success', "Order Has Been Moved To The Management Department");
             return $this->redirectToRoute('shipping_departments');
         }
-
 
         return $this->render('department/viewOrder.html.twig', [
             "order" => $requestedOrder,

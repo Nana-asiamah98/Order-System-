@@ -23,7 +23,7 @@ shipping_departments:
 
 management_departments:
   path: /departments/management
-  controller: App\Controller\DepartmentController:managementDepartment
+  controller: App\Controller\ManagementDepartmentController::index
 
 
 

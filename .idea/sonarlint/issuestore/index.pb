@@ -17,8 +17,6 @@ W
 'public/vendors/js/vendor.bundle.base.js,4\5\45761e66e77631bfed842bad16044920868c3d00
 B
 config/bundles.php,f\a\fa9a09a4e1ae4281250526d3dec214138beb5735
-c
-3templates/department/managementDepartment.html.twig,a\d\ad9e76e16f3e0555c159a363f8e9e8d7cc4ba611
 S
 #templates/dashboard/index.html.twig,c\4\c4dec1c51a37260b8a9ebea29566298fc038d555
 I
@@ -85,8 +83,6 @@ Y
 +templates/registration/createUser.html.twig,c\a\ca3b0c935200dc4e70e7db8b34da0103cb044161
 c
 3templates/registration/confirmation_email.html.twig,f\6\f6f0bd1d1720e6ce3329b02b7359f48dfc424393
-L
-src/Service/OrderService.php,2\0\20ce761d6aebbef67ad7f4bfc9dc04fd0213825f
 I
 public/css/custom-css.css,d\e\ded4a1e705cf43558fd9aa5d9b2cc652736ab7e9
 Y
@@ -98,7 +94,5 @@ A
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 H
 templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
-`
-0templates/department/pickingDepartment.html.twig,9\8\982aa0674277e300f5fef6784634b77b252be4d8
 =
 assets/app.js,8\6\8651bd0a7d84f9f6460894ab6b5ff212648386c4

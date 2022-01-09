@@ -6,8 +6,9 @@ namespace App\Service;
 
 use App\Entity\Order;
 use App\Entity\OrderInterface;
-use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class OrderService
 {
@@ -15,15 +16,28 @@ class OrderService
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var SluggerInterface
+     */
+    private $slugger;
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+    private $targetDirectory;
 
 
     /**
      * OrderService constructor.
      * @param EntityManagerInterface $entityManager
+     * @param ContainerInterface $container
+     * @param SluggerInterface $slugger
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager,ContainerInterface $container, SluggerInterface $slugger)
     {
         $this->entityManager = $entityManager;
+        $this->slugger = $slugger;
+        $this->container = $container;
     }
 
     public function createOrder(Order $requestedOrder): ?OrderInterface
@@ -64,10 +78,12 @@ class OrderService
 
 
         if (null !== $isOrder && $isOrder->getState() === OrderInterface::ORDER_PROCESSING) {
-            dd("hrer");
             return true;
         }
         return false;
 
     }
+
+
+
 }

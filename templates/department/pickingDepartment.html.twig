@@ -26,7 +26,7 @@
                                 <td class="text-center">
                                     <span class="badge badge-warning">{{ order.state }}</span>
                                 </td>
-                                <td class="text-center">12/05/2021</td>
+                                <td class="text-center">{{ order.createdAt|date('d/m/Y') }}</td>
                                 <td class="text-center">
                                     <div class="text-center">
                                         <a href="{{ path('show_order',{'id': order.id}) }}" type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
