@@ -62,54 +62,9 @@ class PickingDepartmentController extends AbstractController
         ]);
     }
 
-    public function showOrder(Order $order, Request $request)
-    {
-        $requestedOrder = $this->orderRepository->find($order);
-        $form = $this->createForm(BoxType::class);
-        $form->handleRequest($request);
-
-        $submittedToken = $request->request->get('box');
-        if (null !== $request->request->get('box')) {
-            $submittedToken = $request->request->get('box')['_token'];
-        }
 
 
-        if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid("box_id", $submittedToken)) {
-            $order->setBoxId($request->request->get('box')['boxId']);
-            $order->setState(OrderInterface::ORDER_READY_TO_SHIP);
-            $this->entityManager->persist($order);
-            $this->entityManager->flush();
-            $this->addFlash('success', "Order Has Been Moved To The Shipping Department");
-            return $this->redirectToRoute('picking_departments');
-        }
 
-        return $this->render('department/viewOrder.html.twig', [
-            "order" => $requestedOrder,
-            "department_name" => "Picking Department",
-            "form" => $form->createView(),
-        ]);
-
-    }
-
-    public function markOrder(Order $order)
-    {
-        $result = $this->orderService->markPickingProduct($order);
-        if ($result) {
-            return new JsonResponse("Successful", 200);
-        }
-        return new JsonResponse("Error", 400);
-    }
-
-    public function isOrderMarkedAsProcessing(Order $order)
-    {
-        $result = $this->orderService->isOrderMarked($order);
-
-        if ($result) {
-            return new JsonResponse($result, 200);
-        }
-
-        return new JsonResponse($result, 400);
-    }
 
 
 }
