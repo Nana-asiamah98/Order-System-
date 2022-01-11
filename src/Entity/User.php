@@ -54,9 +54,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $orders;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderLogs::class, mappedBy="userDetails")
+     */
+    private $orderLogs;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->orderLogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,5 +211,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString() :string
     {
         return $this->getFirstName();
+    }
+
+    /**
+     * @return Collection|OrderLogs[]
+     */
+    public function getOrderLogs(): Collection
+    {
+        return $this->orderLogs;
+    }
+
+    public function addOrderLog(OrderLogs $orderLog): self
+    {
+        if (!$this->orderLogs->contains($orderLog)) {
+            $this->orderLogs[] = $orderLog;
+            $orderLog->setUserDetails($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderLog(OrderLogs $orderLog): self
+    {
+        if ($this->orderLogs->removeElement($orderLog)) {
+            // set the owning side to null (unless already changed)
+            if ($orderLog->getUserDetails() === $this) {
+                $orderLog->setUserDetails(null);
+            }
+        }
+
+        return $this;
     }
 }

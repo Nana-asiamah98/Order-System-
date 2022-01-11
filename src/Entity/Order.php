@@ -82,11 +82,17 @@ class Order implements OrderInterface
      */
     private $shipping;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderLogs::class, mappedBy="orderDetails")
+     */
+    private $orderLogs;
+
     public function __construct()
     {
         $this->state = self::ORDER_RECEIVED;
         $this->product = new ArrayCollection();
         $this->shipping = new ArrayCollection();
+        $this->orderLogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,6 +201,36 @@ class Order implements OrderInterface
             // set the owning side to null (unless already changed)
             if ($shipping->getOrderDetails() === $this) {
                 $shipping->setOrderDetails(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderLogs[]
+     */
+    public function getOrderLogs(): Collection
+    {
+        return $this->orderLogs;
+    }
+
+    public function addOrderLog(OrderLogs $orderLog): self
+    {
+        if (!$this->orderLogs->contains($orderLog)) {
+            $this->orderLogs[] = $orderLog;
+            $orderLog->setOrderDetails($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderLog(OrderLogs $orderLog): self
+    {
+        if ($this->orderLogs->removeElement($orderLog)) {
+            // set the owning side to null (unless already changed)
+            if ($orderLog->getOrderDetails() === $this) {
+                $orderLog->setOrderDetails(null);
             }
         }
 

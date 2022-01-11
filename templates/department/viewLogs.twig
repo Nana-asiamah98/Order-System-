@@ -1,0 +1,167 @@
+{% extends 'layout/layout.html.twig' %}
+
+
+
+{% block title %}
+    Order #{{ order.id }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="module">
+        $(document).ready(function () {
+
+
+            /*Mark Order*/
+            $(document).on('click', '#markOrder', function () {
+                let orderDetails = {{ order.id }};
+
+                JsLoadingOverlay.show({
+                    'spinnerIcon': 'ball-circus',
+                    'spinnerColor': '#ffffff',
+
+                });
+
+                $.ajax({
+                    url: `/order/${orderDetails}/processing`,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: orderDetails
+                }).then((data) => {
+                    console.log(data)
+                    $('#markOrder').addClass('disabled');
+                    $('#productBoxID').removeClass('disabled');
+                    JsLoadingOverlay.hide()
+                }).catch((err) => {
+                    console.log(err)
+                });
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Order #{{ order.id }}</h3>
+        </div>
+
+
+        <div class="card-body ">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Products</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 h-100">
+                                    <div class="bg-primary p-4 rounded">
+                                        <div id="profile-list-left">
+                                            {% for product in order.product %}
+                                                <div class="card rounded mb-2">
+                                                    <div class="card-body p-3">
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <h6 class="mb-1">{{ product.name }}</h6>
+                                                                <p class="mb-0 text-muted">
+                                                                    Amount : {{ product.amount }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                Shipping Details
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="bullet-line-list">
+                                        <li>
+                                            <h6>Shipping Method</h6>
+                                            <p>{{ order.shipping.first.method }}</p>
+                                        </li>
+                                        <li>
+                                            <h6>Shipping Address</h6>
+                                            <p>{{ order.shipping.first.address }}</p>
+                                        </li>
+                                        <li>
+                                            <h6>Phone Number</h6>
+                                            <p>{{ order.shipping.first.phoneNumber }}</p>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="row">
+                    {% if order.state is same as("ORDER_RECEIVED") or order.state is same as ("ORDER_PROCESSING" )%}
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-icon-text" id="markOrder" style="color: white">
+                                <i class="ti-reload btn-icon-prepend"></i>
+                                Mark Picking Products
+                            </button>
+                            <button class="btn btn-danger disabled btn-icon-text" id="productBoxID" style="color: white"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#orderLogsModal">
+                                <i class="ti-upload btn-icon-prepend"></i>
+                                Add Product Box ID
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if order.state is same as ("ORDER_READY_TO_SHIP")%}
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <button class="btn btn-danger  btn-icon-text" id="productBoxID" style="color: white"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#shippingMethodModal">
+                                <i class="fas fa-ship btn-icon-prepend"></i>
+                                Enter Shipping Method
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+{% endblock %}

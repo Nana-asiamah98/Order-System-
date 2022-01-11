@@ -67,8 +67,6 @@ M
 src/Entity/OrderInterface.php,9\8\98c3fae4d42d2b3fc0bef69b24b24619e8f7b3e0
 N
 src/Entity/ShippingDetails.php,9\8\98ff5475c93a91a71a87c832c7f8ebd003025616
-D
-src/Entity/Order.php,3\8\3884f7ea27bbdee89b90c1a8504a9ef387c02daf
 C
 src/Entity/User.php,0\a\0a3e99b9da178509aeb5b3fa6f5dce46bc0eb8be
 F
