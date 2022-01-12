@@ -39,7 +39,7 @@ class Order implements OrderInterface
     private $discount;
 
     /**
-     * @ORM\Column(type="integer",nullable=false)
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $boxId;
 
@@ -56,7 +56,8 @@ class Order implements OrderInterface
      */
     public function setBoxId($boxId): void
     {
-        $this->boxId = $boxId;
+
+        $this->boxId = ($boxId === null) ? 0 : $boxId;
     }
 
     /**

@@ -6,8 +6,11 @@ namespace App\Service;
 
 use App\Entity\Order;
 use App\Entity\OrderInterface;
+use App\Events\OrderLogsEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class OrderService
@@ -24,7 +27,11 @@ class OrderService
      * @var ContainerInterface
      */
     private $container;
-    private $targetDirectory;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
 
     /**
@@ -32,18 +39,24 @@ class OrderService
      * @param EntityManagerInterface $entityManager
      * @param ContainerInterface $container
      * @param SluggerInterface $slugger
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(EntityManagerInterface $entityManager,ContainerInterface $container, SluggerInterface $slugger)
+    public function __construct(EntityManagerInterface $entityManager,
+                                ContainerInterface $container,
+                                SluggerInterface $slugger,
+                                EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
         $this->slugger = $slugger;
         $this->container = $container;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function createOrder(Order $requestedOrder): ?OrderInterface
     {
         $this->entityManager->persist($requestedOrder);
         $this->entityManager->flush();
+        $this->orderLogsEvent($requestedOrder,OrderInterface::ORDER_RECEIVED);
         return $requestedOrder;
     }
 
@@ -61,13 +74,15 @@ class OrderService
             $isOrder->setState(OrderInterface::ORDER_PROCESSING);
             $this->entityManager->persist($isOrder);
             $this->entityManager->flush();
+            $this->orderLogsEvent($order,OrderInterface::ORDER_PROCESSING);
             return true;
         }
 
         return false;
     }
 
-    public function isOrderMarked(Order $order): bool
+
+    public  function isOrderMarked(Order $order): bool
     {
         if (null === $order) {
             return false;
@@ -84,6 +99,19 @@ class OrderService
 
     }
 
+    private function orderLogsEvent(Order $order,string $orderState):void
+    {
+
+        if(null === $order)
+        {
+            return ;
+        }
+
+        /*Event Dispatcher Setup*/
+        $orderLogs = new OrderLogsEvent($order,$orderState);
+
+        $this->eventDispatcher->dispatch($orderLogs,OrderLogsEvent::NAME);
+    }
 
 
 }

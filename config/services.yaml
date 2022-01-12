@@ -30,3 +30,13 @@ services:
         arguments:
             $targetDirectory: "%shipping_files%"
 
+
+    App\EventListener\OrderLogsListener:
+        tags:
+            - { name: doctrine.event_listener, event: postPersist}
+            - { name: kernel.event_listener, event: 'order_logs.opened',method: 'orderOpened'}
+
+    App\EventSubscriber\OrderLogsSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
+

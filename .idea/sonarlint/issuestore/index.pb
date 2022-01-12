@@ -63,8 +63,6 @@ Q
 !src/Controller/UserController.php,8\7\87b99206717ccce222f05190f36b6273e3ea6228
 X
 (templates/order_logs/orderlogs.html.twig,f\b\fbf1cec7fd705407e88ea8af976d4df868feff02
-M
-src/Entity/OrderInterface.php,9\8\98c3fae4d42d2b3fc0bef69b24b24619e8f7b3e0
 N
 src/Entity/ShippingDetails.php,9\8\98ff5475c93a91a71a87c832c7f8ebd003025616
 C
@@ -94,3 +92,17 @@ H
 templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
 =
 assets/app.js,8\6\8651bd0a7d84f9f6460894ab6b5ff212648386c4
+O
+src/Form/ShippingMethodType.php,4\9\493e94c7319823b755578baabfab699cee024d6f
+Q
+!src/Service/FileUploadService.php,c\3\c3afafb5d601a161fbea9bf5c6493adc9eab7a11
+B
+config/routes.yaml,b\a\baef02989dedf0ec859f7bce087a69f29bef2b72
+`
+0templates/department/pickingDepartment.html.twig,9\8\982aa0674277e300f5fef6784634b77b252be4d8
+c
+3templates/department/managementDepartment.html.twig,a\d\ad9e76e16f3e0555c159a363f8e9e8d7cc4ba611
+R
+"templates/department/viewLogs.twig,0\5\05395fcc85a191de4af21686acdc55e51419cafd
+X
+(templates/department/viewOrder.html.twig,2\d\2da2d95ffb96506b028214a3a53fe7446241b843

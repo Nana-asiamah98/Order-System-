@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=OrderLogsRepository::class)
  * @ORM\HasLifecycleCallbacks()
  */
-class OrderLogs
+class OrderLogs implements OrderLogsInterface
 {
 
     use TimeStampableTrait;
