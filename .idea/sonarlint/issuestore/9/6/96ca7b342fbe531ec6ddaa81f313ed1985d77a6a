@@ -1,0 +1,4 @@
+
+S	php:S1172"7Remove the unused function parameter "$orderLogsEvent".(Êö„Ù8ÂÀää/
+0	php:S3626"Remove this redundant jump.(ûÁİ…
+ˆ	php:S1186"lAdd a nested comment explaining why this method is empty, throw an Exception or complete the implementation.(Êö„Ù8ÂÀää/

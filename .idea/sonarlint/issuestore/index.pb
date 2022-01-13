@@ -11,8 +11,6 @@ W
 'public/vendors/modal-demo/modal-demo.js,c\6\c68032a26b204dff3d79f4a9b2cf269f37ba94ae
 a
 1public/vendors/datatable/dataTables.bootstrap4.js,2\f\2f37713578d08f89643f6df3f67b8a52b2664c6e
-V
-&src/Controller/OrderLogsController.php,4\3\430a27080c648ef1fee52ece73a6d7d0cb1208d5
 W
 'public/vendors/js/vendor.bundle.base.js,4\5\45761e66e77631bfed842bad16044920868c3d00
 B
@@ -61,8 +59,6 @@ N
 templates/user/index.html.twig,4\3\43dc2f388a072ee1388ad42012d3bdcbc01c3a41
 Q
 !src/Controller/UserController.php,8\7\87b99206717ccce222f05190f36b6273e3ea6228
-X
-(templates/order_logs/orderlogs.html.twig,f\b\fbf1cec7fd705407e88ea8af976d4df868feff02
 N
 src/Entity/ShippingDetails.php,9\8\98ff5475c93a91a71a87c832c7f8ebd003025616
 C
@@ -96,13 +92,29 @@ O
 src/Form/ShippingMethodType.php,4\9\493e94c7319823b755578baabfab699cee024d6f
 Q
 !src/Service/FileUploadService.php,c\3\c3afafb5d601a161fbea9bf5c6493adc9eab7a11
-B
-config/routes.yaml,b\a\baef02989dedf0ec859f7bce087a69f29bef2b72
 `
 0templates/department/pickingDepartment.html.twig,9\8\982aa0674277e300f5fef6784634b77b252be4d8
-c
-3templates/department/managementDepartment.html.twig,a\d\ad9e76e16f3e0555c159a363f8e9e8d7cc4ba611
-R
-"templates/department/viewLogs.twig,0\5\05395fcc85a191de4af21686acdc55e51419cafd
 X
 (templates/department/viewOrder.html.twig,2\d\2da2d95ffb96506b028214a3a53fe7446241b843
+_
+/src/Controller/ShippingDepartmentController.php,0\7\07f15982921c0a193b61951edd80c3a555684995
+U
+%src/Service/ShippingMethodService.php,3\c\3c2413fc0ec9666d9801f6eca133600a5fa0fff3
+M
+src/Events/OrderLogsEvent.php,5\a\5ad791579c3eea23a08a19e7debcccb9547bfa43
+[
++src/EventSubscriber/OrderLogsSubscriber.php,2\1\21e910dd2968c7531f7bd4fb0839ae4e59a53ac6
+Q
+!src/Entity/OrderLogsInterface.php,a\e\aeb6ed91e6f18a21b43f6932127c50c5f7f4b36c
+L
+src/Service/OrderService.php,2\0\20ce761d6aebbef67ad7f4bfc9dc04fd0213825f
+D
+config/services.yaml,8\7\87042d1f46b57381244d70e7a42feeb7710727dc
+\
+,src/Repository/ShippingDetailsRepository.php,9\1\91ae8c4d9540f67403839133fe9354a3ab4b8569
+W
+'src/EventListener/OrderLogsListener.php,9\6\96ca7b342fbe531ec6ddaa81f313ed1985d77a6a
+R
+"templates/department/viewLogs.twig,0\5\05395fcc85a191de4af21686acdc55e51419cafd
+D
+src/Entity/Order.php,3\8\3884f7ea27bbdee89b90c1a8504a9ef387c02daf

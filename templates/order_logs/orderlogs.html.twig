@@ -36,30 +36,62 @@
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table class="table" id="order_logs_table">
+                        <table class="table" id="">
                             <thead>
                             <tr>
-                                <th class="text-center">Order Number</th>
-                                <th class="text-center">State</th>
                                 <th class="text-center">Date</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">State</th>
+                                <th class="text-center">Description</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="text-center">#22211</td>
-                                <td class="text-center">
-                                    <span class="badge badge-warning">Processing</span>
-                                </td>
-                                <td class="text-center">12/05/2021</td>
-                                <td class="text-center">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
-                                                data-bs-target="#orderLogsModal"><i
-                                                    class="mdi mdi-eye"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
+                            {% for log in orderLogs %}
+                                <tr>
+                                    {% if log.state is same as "ORDER_RECEIVED" %}
+                                        <td class="text-center">{{ log.createdAt|date('dd:mm:yy H:i:s') }}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-warning">{{ log.state }}</span>
+                                        </td>
+                                        <td class="text-center">Order <span
+                                                    class="fw-bold">#  {{ log.orderDetails.id }}</span> has been
+                                            received by the system
+                                        </td>
+                                    {% elseif log.state is same as "ORDER_PROCESSING" %}
+                                        <td class="text-center">{{ log.createdAt|date('dd:mm:yy H:i:s') }}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-warning">{{ log.state }}</span>
+                                        </td>
+                                        <td class="text-center">Order <span
+                                                    class="fw-bold">#  {{ log.orderDetails.id }}</span> has been
+                                            changed to PROCESSING by <span
+                                                    class="fw-bold">{{ log.userDetails.firstName }}</span>
+                                            <span class="fw-bold">({{ log.userDetails.id }})</span>
+                                        </td>
+                                    {% elseif log.state is same as "ORDER_READY_TO_SHIP" %}
+                                        <td class="text-center">{{ log.createdAt|date('dd:mm:yy H:i:s') }}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-warning">{{ log.state }}</span>
+                                        </td>
+                                        <td class="text-center">Order <span
+                                                    class="fw-bold">#  {{ log.orderDetails.id }}</span> has been changed to READY TO SHIP by
+                                            <span
+                                                    class="fw-bold">{{ log.userDetails.firstName }}</span> <span
+                                                    class="fw-bold">({{ log.userDetails.id }})</span> with BOX_ID: <span
+                                            class="fw-bold">({{ log.orderDetails.boxId }})</span>
+                                    {% elseif log.state is same as "ORDER_SHIPPED" %}
+                                        <td class="text-center">{{ log.createdAt|date('dd:mm:yy H:i:s') }}</td>
+                                        <td class="text-center">
+                                            <span class="badge badge-warning">{{ log.state }}</span>
+                                        </td>
+                                        <td class="text-center">Order <span
+                                                    class="fw-bold">#  {{ log.orderDetails.id }}</span> has been changed to SHIPPED by
+                                            <span
+                                                    class="fw-bold">{{ log.userDetails.firstName }}</span> <span
+                                                    class="fw-bold">({{ log.userDetails.id }})</span> with AWB:
+                                            #21321313131 by UPS <a href="#0"  class="reset-link">[View Label]</a> </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -73,7 +105,8 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-history"></i> Order History</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="mdi menu-icon mdi-history"></i> Order
+                        History</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

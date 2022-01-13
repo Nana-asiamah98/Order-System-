@@ -28,7 +28,7 @@ class OrderLogs implements OrderLogsInterface
     private $orderDetails;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orderLogs")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orderLogs",fetch="EAGER")
      */
     private $userDetails;
 

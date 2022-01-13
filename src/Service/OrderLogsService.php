@@ -11,6 +11,7 @@ use App\Entity\OrderLogsInterface;
 use App\Entity\User;
 use App\Repository\OrderLogsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\QueryException;
 use Symfony\Component\Security\Core\Security;
 
 class OrderLogsService
@@ -59,6 +60,18 @@ class OrderLogsService
         $this->entityManager->persist($orderLogs);
         $this->entityManager->flush();
 
+    }
+
+    public function fetchOrderLogs(Order $order)
+    {
+        /** @var OrderLogsInterface $orderlogs */
+        $orderlogs = $this->entityManager->getRepository(OrderLogs::class)->findBy(['orderDetails'=>$order->getId()]);
+
+        if(empty($orderlogs)){
+            throw new QueryException(sprintf("No logs for order #%d ",$order->getId()));
+        }
+
+        return $orderlogs;
 
     }
 }

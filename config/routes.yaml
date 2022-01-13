@@ -70,3 +70,10 @@ order_marked:
   methods: [GET]
   controller: App\Controller\OrderController::isOrderMarkedAsProcessing
 
+
+#Order Logs
+order_logs:
+  path: /order/{id}/logs
+  methods: [GET]
+  controller: App\Controller\OrderLogsController::showLogs
+
