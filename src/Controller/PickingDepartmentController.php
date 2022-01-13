@@ -62,6 +62,20 @@ class PickingDepartmentController extends AbstractController
         ]);
     }
 
+    public function cancelOrder(Order $order,Request $request):Response
+    {
+
+        $csrf_token = $request->request->get('_csrf_token');
+        if($this->isCsrfTokenValid('cancel_order',$csrf_token)){
+            $this->orderService->cancelOrder($order);
+            $this->addFlash('success', "Order Has Been Cancelled");
+            return $this->redirectToRoute('picking_departments');
+        }
+        $this->addFlash('error', "Failed To Cancel Order");
+        return $this->redirectToRoute('picking_departments');
+
+    }
+
 
 
 

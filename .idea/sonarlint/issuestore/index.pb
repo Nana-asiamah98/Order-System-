@@ -94,20 +94,12 @@ Q
 !src/Service/FileUploadService.php,c\3\c3afafb5d601a161fbea9bf5c6493adc9eab7a11
 `
 0templates/department/pickingDepartment.html.twig,9\8\982aa0674277e300f5fef6784634b77b252be4d8
-X
-(templates/department/viewOrder.html.twig,2\d\2da2d95ffb96506b028214a3a53fe7446241b843
-_
-/src/Controller/ShippingDepartmentController.php,0\7\07f15982921c0a193b61951edd80c3a555684995
-U
-%src/Service/ShippingMethodService.php,3\c\3c2413fc0ec9666d9801f6eca133600a5fa0fff3
 M
 src/Events/OrderLogsEvent.php,5\a\5ad791579c3eea23a08a19e7debcccb9547bfa43
 [
 +src/EventSubscriber/OrderLogsSubscriber.php,2\1\21e910dd2968c7531f7bd4fb0839ae4e59a53ac6
 Q
 !src/Entity/OrderLogsInterface.php,a\e\aeb6ed91e6f18a21b43f6932127c50c5f7f4b36c
-L
-src/Service/OrderService.php,2\0\20ce761d6aebbef67ad7f4bfc9dc04fd0213825f
 D
 config/services.yaml,8\7\87042d1f46b57381244d70e7a42feeb7710727dc
 \

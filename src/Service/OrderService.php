@@ -93,10 +93,31 @@ class OrderService
 
 
         if (null !== $isOrder && $isOrder->getState() === OrderInterface::ORDER_PROCESSING) {
+
             return true;
         }
         return false;
 
+    }
+
+    public function readyToShip(Order $order,int $boxId):void
+    {
+        if(null === $order){
+            return;
+        }
+        $order->setState(OrderInterface::ORDER_READY_TO_SHIP);
+        $order->setBoxId($boxId);
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
+        $this->orderLogsEvent($order,OrderInterface::ORDER_READY_TO_SHIP);
+    }
+
+    public function cancelOrder(OrderInterface $order):void
+    {
+        $order->setState(OrderInterface::ORDER_CANCELLED);
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
+        $this->orderLogsEvent($order,OrderInterface::ORDER_CANCELLED);
     }
 
     private function orderLogsEvent(Order $order,string $orderState):void
@@ -106,7 +127,6 @@ class OrderService
         {
             return ;
         }
-
         /*Event Dispatcher Setup*/
         $orderLogs = new OrderLogsEvent($order,$orderState);
 

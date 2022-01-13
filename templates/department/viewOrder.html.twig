@@ -130,12 +130,22 @@
                                 <i class="ti-reload btn-icon-prepend"></i>
                                 Mark Picking Products
                             </button>
-                            <button class="btn btn-danger disabled btn-icon-text" id="productBoxID" style="color: white"
+                            <button class="btn btn-success disabled btn-icon-text" id="productBoxID" style="color: white"
                                     data-bs-toggle="modal"
                                     data-bs-target="#orderLogsModal">
                                 <i class="ti-upload btn-icon-prepend"></i>
                                 Add Product Box ID
                             </button>
+                            <form action="{{ path('cancel_order',{"id":order.id}) }}" method="post">
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('cancel_order') }}"
+                                >
+                                <button class="btn btn-danger btn-icon-text" type="submit" style="color: white">
+                                    <i class="ti-trash btn-icon-prepend"></i>
+                                    Cancel Order
+                                </button>
+                            </form>
+
                         </div>
                     </div>
                     {% endif %}

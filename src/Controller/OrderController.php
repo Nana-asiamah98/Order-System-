@@ -104,10 +104,8 @@ class OrderController extends AbstractController
         /*Forms Validation and Submission*/
         /*Box ID and ORDER_READY_TO_SHIP*/
         if ($form->isSubmitted() && $form->isValid() && $this->isCsrfTokenValid("box_id", $submittedToken)) {
-            $order->setBoxId($request->request->get('box')['boxId']);
-            $order->setState(OrderInterface::ORDER_READY_TO_SHIP);
-            $this->entityManager->persist($order);
-            $this->entityManager->flush();
+            $boxId = $request->request->get('box')['boxId'];
+            $this->orderService->readyToShip($order,$boxId);
             $this->addFlash('success', "Order Has Been Moved To The Shipping Department");
             return $this->redirectToRoute('picking_departments');
         }
