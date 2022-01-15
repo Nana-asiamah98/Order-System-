@@ -4,12 +4,12 @@
 namespace App\Service;
 
 
+use App\Entity\Issues;
 use App\Entity\Order;
 use App\Entity\OrderInterface;
 use App\Events\OrderLogsEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -56,7 +56,7 @@ class OrderService
     {
         $this->entityManager->persist($requestedOrder);
         $this->entityManager->flush();
-        $this->orderLogsEvent($requestedOrder,OrderInterface::ORDER_RECEIVED);
+        $this->orderLogsEvent($requestedOrder, OrderInterface::ORDER_RECEIVED);
         return $requestedOrder;
     }
 
@@ -74,7 +74,7 @@ class OrderService
             $isOrder->setState(OrderInterface::ORDER_PROCESSING);
             $this->entityManager->persist($isOrder);
             $this->entityManager->flush();
-            $this->orderLogsEvent($order,OrderInterface::ORDER_PROCESSING);
+            $this->orderLogsEvent($order, OrderInterface::ORDER_PROCESSING);
             return true;
         }
 
@@ -82,7 +82,7 @@ class OrderService
     }
 
 
-    public  function isOrderMarked(Order $order): bool
+    public function isOrderMarked(Order $order): bool
     {
         if (null === $order) {
             return false;
@@ -100,37 +100,57 @@ class OrderService
 
     }
 
-    public function readyToShip(Order $order,int $boxId):void
+    public function readyToShip(Order $order, int $boxId): void
     {
-        if(null === $order){
+        if (null === $order) {
             return;
         }
         $order->setState(OrderInterface::ORDER_READY_TO_SHIP);
         $order->setBoxId($boxId);
         $this->entityManager->persist($order);
         $this->entityManager->flush();
-        $this->orderLogsEvent($order,OrderInterface::ORDER_READY_TO_SHIP);
+        $this->orderLogsEvent($order, OrderInterface::ORDER_READY_TO_SHIP);
     }
 
-    public function cancelOrder(OrderInterface $order):void
+    public function cancelOrder(OrderInterface $order): void
     {
         $order->setState(OrderInterface::ORDER_CANCELLED);
         $this->entityManager->persist($order);
         $this->entityManager->flush();
-        $this->orderLogsEvent($order,OrderInterface::ORDER_CANCELLED);
+        $this->orderLogsEvent($order, OrderInterface::ORDER_CANCELLED);
     }
 
-    private function orderLogsEvent(Order $order,string $orderState):void
+    private function orderLogsEvent(Order $order, string $orderState): void
     {
 
-        if(null === $order)
-        {
-            return ;
+        if (null === $order) {
+            return;
         }
         /*Event Dispatcher Setup*/
-        $orderLogs = new OrderLogsEvent($order,$orderState);
+        $orderLogs = new OrderLogsEvent($order, $orderState);
 
-        $this->eventDispatcher->dispatch($orderLogs,OrderLogsEvent::NAME);
+        $this->eventDispatcher->dispatch($orderLogs, OrderLogsEvent::NAME);
+    }
+
+    public function issueReport(Order $order, Issues $issues)
+    {
+        if (null === $order) {
+            throw new \LogicException("There is not issue to report");
+        }
+
+        if (null === $issues) {
+            throw new \LogicException("There is not issue to report");
+
+        }
+        $order->setIsIssue(true);
+        $order->setState(OrderInterface::ORDER_RECEIVED);
+        $issues->setOrderDetails($order);
+
+        $this->entityManager->persist($issues);
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
+        $this->orderLogsEvent($order,OrderInterface::ORDER_PROCESSING);
+        return $order;
     }
 
 

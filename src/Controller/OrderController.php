@@ -4,11 +4,13 @@
 namespace App\Controller;
 
 
+use App\Entity\Issues;
 use App\Entity\Order;
 use App\Entity\OrderInterface;
 use App\Entity\ShippingMethod;
 use App\Entity\ShippingMethodInterface;
 use App\Form\BoxType;
+use App\Form\IssueType;
 use App\Form\OrderType;
 use App\Form\ShippingMethodType;
 use App\Repository\OrderRepository;
@@ -25,6 +27,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class OrderController extends AbstractController
 {
+
+    const TOKEN = '_token';
     /**
      * @var OrderRepository
      */
@@ -94,11 +98,18 @@ class OrderController extends AbstractController
         $shippingMethodForm = $this->createForm(ShippingMethodType::class);
         $shippingMethodForm->handleRequest($request);
 
+        $issueForm = $this->createForm(IssueType::class);
+        $issueForm->handleRequest($request);
+
+        $orderIssues =  $this->entityManager->getRepository(Issues::class)->findOneBy(['orderDetails'=>$order]);
+
         $submittedToken = $request->request->get('box') !== null ? $request->request->get('box') : $request->request->get('shipping_method') ;
         if (null !== $request->request->get('box')) {
-            $submittedToken = $request->request->get('box')['_token'];
+            $submittedToken = $request->request->get('box')[self::TOKEN];
         }elseif(null !== $request->request->get('shipping_method')){
-            $submittedToken =  $request->request->get('shipping_method')['_token'];
+            $submittedToken =  $request->request->get('shipping_method')[self::TOKEN];
+        }elseif(null !== $request->request->get('issue_report')){
+            $submittedToken =  $request->request->get('issue_report')['token'];
         }
 
         /*Forms Validation and Submission*/
@@ -110,26 +121,33 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('picking_departments');
         }
 
+        /*File Upload And Shipping Information*/
         if ($shippingMethodForm->isSubmitted() && $shippingMethodForm->isValid() && $this->isCsrfTokenValid("shipping_method", $submittedToken)) {
 
-            /** @var UploadedFile $fileUpload */
-            $fileUpload = $shippingMethodForm->get('documentPath')->getData();
+                /** @var UploadedFile $fileUpload */
+                $fileUpload = $shippingMethodForm->get('documentPath')->getData();
 
-            $fileUploadedName = $this->fileUploadService->fileUpload($fileUpload);
+                $fileUploadedName = $this->fileUploadService->fileUpload($fileUpload);
 
-            /** @var ShippingMethodInterface $shippingMethodData */
-            $shippingMethodData = $shippingMethodForm->getData();
-            $shippingMethodData->setDocumentPath($fileUploadedName);
-            $order->setState(Order::ORDER_SHIPPED);
-            $shippingMethodData->setOrderDetails($order);
+                /** @var ShippingMethodInterface $shippingMethodData */
+                $shippingMethodData = $shippingMethodForm->getData();
+                $shippingMethodData->setDocumentPath($fileUploadedName);
+                $order->setState(Order::ORDER_SHIPPED);
+                $shippingMethodData->setOrderDetails($order);
 
-            try {
-                $shippingMethodData = $this->shippingMethodService->storeOrderShippingInfo($shippingMethodData);
-            } catch (\Exception $e) {
-                throw new \LogicException(sprintf("The error is from '%s'",$e));
-            }
+                try {
+                    $shippingMethodData = $this->shippingMethodService->storeOrderShippingInfo($shippingMethodData);
+                } catch (\Exception $e) {
+                    throw new \LogicException(sprintf("The error is from '%s'",$e));
+                }
 
             $this->addFlash('success', "Order Has Been Moved To The Management Department");
+            return $this->redirectToRoute('shipping_departments');
+        }
+
+        if ($issueForm->isSubmitted() && $issueForm->isValid()){
+            $order = $this->orderService->issueReport($order,$issueForm->getData());
+            $this->addFlash('success', "Issue Has Been Spent Successfully");
             return $this->redirectToRoute('shipping_departments');
         }
 
@@ -137,9 +155,10 @@ class OrderController extends AbstractController
             "order" => $requestedOrder,
             "department_name" => "Picking Department",
             "form" => $form->createView(),
-            "shippingMethodForm" => $shippingMethodForm->createView()
+            "shippingMethodForm" => $shippingMethodForm->createView(),
+            "issueForm" => $issueForm->createView(),
+            'issue' => $orderIssues
         ]);
-
     }
 
     public function markOrder(Order $order)

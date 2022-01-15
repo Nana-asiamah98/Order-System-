@@ -88,6 +88,11 @@ class Order implements OrderInterface
      */
     private $orderLogs;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isIssue;
+
     public function __construct()
     {
         $this->state = self::ORDER_RECEIVED;
@@ -234,6 +239,18 @@ class Order implements OrderInterface
                 $orderLog->setOrderDetails(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsIssue(): ?bool
+    {
+        return $this->isIssue;
+    }
+
+    public function setIsIssue(?bool $isIssue): self
+    {
+        $this->isIssue = $isIssue;
 
         return $this;
     }

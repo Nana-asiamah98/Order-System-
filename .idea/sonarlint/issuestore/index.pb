@@ -37,10 +37,6 @@ S
 #public/vendors/tinymce/tinymce.d.ts,9\7\97bd3c1219f84a4cb538b139465a06ad2531fd49
 N
 config/packages/framework.yaml,d\f\df607fe73ff82c569824a7392edf5e760e998efe
-B
-docker-compose.yml,3\5\35b8c13cf2eb2a194eada000eb310d65aed53b2a
-H
-src/Form/ProductType.php,1\0\1078168c1730cf23f7f3085b76dab9e6edc0135e
 I
 src/Form/ShippingType.php,b\8\b868a4cb0f670d11001bceb5d5b6ae04ef6f7181
 W
@@ -63,10 +59,6 @@ N
 src/Entity/ShippingDetails.php,9\8\98ff5475c93a91a71a87c832c7f8ebd003025616
 C
 src/Entity/User.php,0\a\0a3e99b9da178509aeb5b3fa6f5dce46bc0eb8be
-F
-src/Form/OrderType.php,1\1\114551b8d43035499d6fa30b5e7dc50e868238d8
-Q
-!src/Form/RegistrationFormType.php,9\5\95d4b58438357928efb9c5a862a6d289d874e878
 Y
 )templates/registration/editUser.html.twig,3\7\37df5337f38ef0b313a3759e7c78b8691cf8d55b
 Y
@@ -88,8 +80,6 @@ H
 templates/base.html.twig,f\f\ffb3f1cfd73fdec1f0c80c63d0b5bbc1fff22022
 =
 assets/app.js,8\6\8651bd0a7d84f9f6460894ab6b5ff212648386c4
-O
-src/Form/ShippingMethodType.php,4\9\493e94c7319823b755578baabfab699cee024d6f
 Q
 !src/Service/FileUploadService.php,c\3\c3afafb5d601a161fbea9bf5c6493adc9eab7a11
 `
@@ -106,7 +96,37 @@ D
 ,src/Repository/ShippingDetailsRepository.php,9\1\91ae8c4d9540f67403839133fe9354a3ab4b8569
 W
 'src/EventListener/OrderLogsListener.php,9\6\96ca7b342fbe531ec6ddaa81f313ed1985d77a6a
-R
-"templates/department/viewLogs.twig,0\5\05395fcc85a191de4af21686acdc55e51419cafd
 D
 src/Entity/Order.php,3\8\3884f7ea27bbdee89b90c1a8504a9ef387c02daf
+a
+1src/Controller/ManagementDepartmentController.php,c\d\cde475a5b970d6d03fa063f8e4c46f8b0ff2c9e2
+c
+3templates/department/managementDepartment.html.twig,a\d\ad9e76e16f3e0555c159a363f8e9e8d7cc4ba611
+Q
+!templates/layout/layout.html.twig,7\5\75ddb3ed9714006ab1affb896c3c272ff44c9ce2
+P
+ src/Service/OrderLogsService.php,4\d\4d3c16ee71d3a8daf8da2398294996f5067cb5af
+V
+&src/Controller/OrderLogsController.php,4\3\430a27080c648ef1fee52ece73a6d7d0cb1208d5
+H
+src/Entity/OrderLogs.php,5\3\530e8d4059ee7c13b625b957e59198dd532b46fc
+R
+"templates/security/login.html.twig,8\9\89d5f9595fc54c90b0c2626c3e5e07e23a679864
+B
+config/routes.yaml,b\a\baef02989dedf0ec859f7bce087a69f29bef2b72
+U
+%src/Service/ShippingMethodService.php,3\c\3c2413fc0ec9666d9801f6eca133600a5fa0fff3
+V
+&src/Entity/ShippingMethodInterface.php,2\5\25263b3ff146603fdc93e75f5d8370642b891cd7
+^
+.src/Controller/PickingDepartmentController.php,1\5\15008b52c715ee6daa40f611afc056ad0f324b5d
+a
+1templates/department/shippingDepartment.html.twig,2\9\290d852dfa703eaa6cc2894d38a50ea9968500ac
+_
+/src/Controller/ShippingDepartmentController.php,0\7\07f15982921c0a193b61951edd80c3a555684995
+H
+src/Form/ProductType.php,1\0\1078168c1730cf23f7f3085b76dab9e6edc0135e
+Q
+!src/Form/RegistrationFormType.php,9\5\95d4b58438357928efb9c5a862a6d289d874e878
+O
+src/Form/ShippingMethodType.php,4\9\493e94c7319823b755578baabfab699cee024d6f
